@@ -16,28 +16,31 @@ class HomeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 70,
-          height: 70,
-          decoration: BoxDecoration(
-            color: AppColors.whiteColor,
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Center(
-            child: Image.asset(
-              iconUrl,
-              width: 26,
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: AppColors.whiteColor,
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Center(
+              child: Image.asset(
+                iconUrl,
+                width: 26,
+              ),
             ),
           ),
-        ),
-        AppUtils.spaceV(8),
-        Text(
-          title,
-          style: AppTextStyle.blackPoppins(14, FontWeight.w500),
-        ),
-      ],
+          AppUtils.spaceV(8),
+          Text(
+            title,
+            style: AppTextStyle.blackPoppins(14, FontWeight.w500),
+          ),
+        ],
+      ),
     );
   }
 }

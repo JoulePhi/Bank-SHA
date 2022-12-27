@@ -56,7 +56,13 @@ class SigninPage extends StatelessWidget {
                   ),
                 ),
                 AppUtils.spaceV(30),
-                const FilledButton(title: 'Sign In')
+                FilledButton(
+                  title: 'Sign In',
+                  onPressed: () {
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, PagesName.homePage, (route) => false);
+                  },
+                )
               ],
             ),
           ),

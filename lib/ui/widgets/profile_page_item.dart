@@ -1,0 +1,33 @@
+import 'package:bank_sha/shared/text_style.dart';
+import 'package:bank_sha/shared/utils.dart';
+import 'package:flutter/material.dart';
+
+class ProfileMenuItem extends StatelessWidget {
+  final String iconUrl, title;
+  final VoidCallback? onTap;
+  const ProfileMenuItem(
+      {super.key, required this.iconUrl, required this.title, this.onTap});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 30),
+        child: Row(
+          children: [
+            Image.asset(
+              iconUrl,
+              width: 24,
+            ),
+            AppUtils.spaceH(18),
+            Text(
+              title,
+              style: AppTextStyle.blackPoppins(14, FontWeight.w500),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

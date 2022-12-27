@@ -27,6 +27,7 @@ class AppFormField extends StatelessWidget {
         TextFormField(
           controller: controller,
           obscureText: obscured,
+          style: AppTextStyle.blackPoppins(14, FontWeight.w500),
           decoration: InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),

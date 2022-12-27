@@ -1,3 +1,4 @@
+import 'package:bank_sha/routes/route_name.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
@@ -30,20 +31,25 @@ class ProfileSection extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            width: 60,
-            height: 60,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage('assets/image_profile.png'),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, PagesName.profilePage);
+            },
+            child: Container(
+              width: 60,
+              height: 60,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage('assets/image_profile.png'),
+                ),
               ),
-            ),
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Image.asset(
-                'assets/ic_check.png',
-                width: 16,
+              child: Align(
+                alignment: Alignment.topRight,
+                child: Image.asset(
+                  'assets/ic_check.png',
+                  width: 16,
+                ),
               ),
             ),
           )
@@ -163,11 +169,29 @@ class MenuItemSection extends StatelessWidget {
           AppUtils.spaceV(14),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              HomeItem(title: 'Top Up', iconUrl: 'assets/ic_topup.png'),
-              HomeItem(title: 'Send', iconUrl: 'assets/ic_send.png'),
-              HomeItem(title: 'Withdraw', iconUrl: 'assets/ic_withdraw.png'),
-              HomeItem(title: 'More', iconUrl: 'assets/ic_more.png'),
+            children: [
+              HomeItem(
+                title: 'Top Up',
+                iconUrl: 'assets/ic_topup.png',
+                onTap: () {
+                  Navigator.pushNamed(context, PagesName.topupPage);
+                },
+              ),
+              HomeItem(
+                title: 'Send',
+                iconUrl: 'assets/ic_send.png',
+                onTap: () {},
+              ),
+              HomeItem(
+                title: 'Withdraw',
+                iconUrl: 'assets/ic_withdraw.png',
+                onTap: () {},
+              ),
+              HomeItem(
+                title: 'More',
+                iconUrl: 'assets/ic_more.png',
+                onTap: () {},
+              ),
             ],
           )
         ],
