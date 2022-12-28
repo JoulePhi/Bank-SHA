@@ -1,6 +1,8 @@
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:flutter/material.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:intl/intl.dart';
 
 class AppUtils {
   static var spaceV = (double height) => SizedBox(
@@ -28,4 +30,18 @@ class AppUtils {
           ),
         ),
       );
+
+  static void showAppSnackbar(BuildContext context, String msg) {
+    Flushbar(
+      message: msg,
+      backgroundColor: AppColors.darkPinkColor,
+      duration: const Duration(seconds: 2),
+      flushbarPosition: FlushbarPosition.TOP,
+    ).show(context);
+  }
+
+  static String formatCurrency(num number, {String symbol = 'Rp '}) {
+    return NumberFormat.currency(locale: 'id', symbol: symbol, decimalDigits: 0)
+        .format(number);
+  }
 }

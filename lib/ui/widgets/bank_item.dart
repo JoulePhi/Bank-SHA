@@ -3,13 +3,14 @@ import 'package:bank_sha/shared/text_style.dart';
 import 'package:flutter/material.dart';
 
 class BankItem extends StatelessWidget {
-  final String name, logoUrl;
+  final String name, logoUrl, detail;
   final bool isSelected;
   const BankItem({
     super.key,
     required this.name,
     required this.logoUrl,
     this.isSelected = false,
+    this.detail = 'Available',
   });
 
   @override
@@ -43,7 +44,7 @@ class BankItem extends StatelessWidget {
                 style: AppTextStyle.blackPoppins(16, FontWeight.w500),
               ),
               Text(
-                '50 mins',
+                detail,
                 style: AppTextStyle.greyPoppins(12, FontWeight.normal),
               )
             ],

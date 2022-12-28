@@ -96,7 +96,7 @@ class CardSection extends StatelessWidget {
             style: AppTextStyle.whitePoppins(14, FontWeight.normal),
           ),
           Text(
-            'Rp 12.500',
+            AppUtils.formatCurrency(12500),
             style: AppTextStyle.whitePoppins(24, FontWeight.w600),
           ),
         ],
@@ -131,7 +131,7 @@ class LevelSection extends StatelessWidget {
                 style: AppTextStyle.greenPoppins(14, FontWeight.w600),
               ),
               Text(
-                ' of Rp 20.000',
+                ' of ${AppUtils.formatCurrency(20000)}',
                 style: AppTextStyle.blackPoppins(14, FontWeight.w600),
               ),
             ],
@@ -180,7 +180,9 @@ class MenuItemSection extends StatelessWidget {
               HomeItem(
                 title: 'Send',
                 iconUrl: 'assets/ic_send.png',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushNamed(context, PagesName.transferPage);
+                },
               ),
               HomeItem(
                 title: 'Withdraw',
@@ -190,11 +192,95 @@ class MenuItemSection extends StatelessWidget {
               HomeItem(
                 title: 'More',
                 iconUrl: 'assets/ic_more.png',
-                onTap: () {},
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => const ModalDialog());
+                },
               ),
             ],
           )
         ],
+      ),
+    );
+  }
+}
+
+class ModalDialog extends StatelessWidget {
+  const ModalDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      insetPadding: const EdgeInsets.all(0),
+      backgroundColor: Colors.transparent,
+      alignment: Alignment.bottomCenter,
+      content: Container(
+        height: 326,
+        width: MediaQuery.of(context).size.width - 24,
+        padding: const EdgeInsets.all(30),
+        decoration: BoxDecoration(
+          color: AppColors.lightBgColor,
+          borderRadius: BorderRadius.circular(40),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Do More With Us',
+              style: AppTextStyle.blackPoppins(16, FontWeight.w600),
+            ),
+            AppUtils.spaceV(13),
+            Wrap(
+              spacing: 19,
+              runSpacing: 29,
+              children: [
+                HomeItem(
+                  title: 'Data',
+                  iconUrl: 'assets/ic_modal_data.png',
+                  onTap: () {
+                    Navigator.pushNamed(context, PagesName.providerPage);
+                  },
+                ),
+                HomeItem(
+                  title: 'Water',
+                  iconUrl: 'assets/ic_modal_droplet.png',
+                  onTap: () {
+                    // Navigator.pushNamed(context, PagesName.topupPage);
+                  },
+                ),
+                HomeItem(
+                  title: 'Stream',
+                  iconUrl: 'assets/ic_modal_stream.png',
+                  onTap: () {
+                    // Navigator.pushNamed(context, PagesName.topupPage);
+                  },
+                ),
+                HomeItem(
+                  title: 'Movie',
+                  iconUrl: 'assets/ic_modal_tv.png',
+                  onTap: () {
+                    // Navigator.pushNamed(context, PagesName.topupPage);
+                  },
+                ),
+                HomeItem(
+                  title: 'Food',
+                  iconUrl: 'assets/ic_modal_coffee.png',
+                  onTap: () {
+                    // Navigator.pushNamed(context, PagesName.topupPage);
+                  },
+                ),
+                HomeItem(
+                  title: 'Travel',
+                  iconUrl: 'assets/ic_modal_globe.png',
+                  onTap: () {
+                    // Navigator.pushNamed(context, PagesName.topupPage);
+                  },
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -225,32 +311,32 @@ class LatestTransactionSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             child: Column(
-              children: const [
+              children: [
                 LatestTracItem(
                     iconUrl: 'assets/ic_trac_topup.png',
                     title: 'Top Up',
                     date: 'Yesterday',
-                    value: '+ 450.000'),
+                    value: '+ ${AppUtils.formatCurrency(450000)}'),
                 LatestTracItem(
                     iconUrl: 'assets/ic_trac_cashback.png',
                     title: 'Cashback',
                     date: 'Sep 11',
-                    value: '+ 22.000'),
+                    value: '+ ${AppUtils.formatCurrency(22000)}'),
                 LatestTracItem(
                     iconUrl: 'assets/ic_trac_withdraw.png',
                     title: 'Withdraw',
                     date: 'Sep 2',
-                    value: '- 5.000'),
+                    value: '- ${AppUtils.formatCurrency(5000)}'),
                 LatestTracItem(
                     iconUrl: 'assets/ic_trac_transfer.png',
                     title: 'Transfer',
                     date: 'Aug 27',
-                    value: '- 123.500'),
+                    value: '- ${AppUtils.formatCurrency(123500)}'),
                 LatestTracItem(
                     iconUrl: 'assets/ic_trac_electric.png',
                     title: 'Electric',
                     date: 'Feb 18',
-                    value: '- 12.300.000'),
+                    value: '- ${AppUtils.formatCurrency(12300000)}'),
               ],
             ),
           )

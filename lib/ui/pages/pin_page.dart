@@ -23,8 +23,13 @@ class _PinPageState extends State<PinPage> {
       pinC.text = pinC.text;
     }
 
-    if (pinC.text == '123456') {
-      Navigator.pop(context, true);
+    if (pinC.text.length >= 6) {
+      if (pinC.text == '123456') {
+        Navigator.pop(context, true);
+      } else {
+        AppUtils.showAppSnackbar(
+            context, 'PIN yang anda masukkan salah. Silakan coba lagi.');
+      }
     }
   }
 

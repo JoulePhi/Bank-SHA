@@ -8,6 +8,9 @@ import 'package:bank_sha/ui/pages/pin_page.dart';
 import 'package:bank_sha/ui/pages/profile_edit_page.dart';
 import 'package:bank_sha/ui/pages/profile_editpin_page.dart';
 import 'package:bank_sha/ui/pages/profile_page.dart';
+import 'package:bank_sha/ui/pages/provider_package_select.dart';
+import 'package:bank_sha/ui/pages/provider_select.dart';
+import 'package:bank_sha/ui/pages/provider_success.dart';
 import 'package:bank_sha/ui/pages/signin_page.dart';
 import 'package:bank_sha/ui/pages/signup_ktp_page.dart';
 import 'package:bank_sha/ui/pages/signup_page.dart';
@@ -15,6 +18,9 @@ import 'package:bank_sha/ui/pages/signup_setprofile_page.dart';
 import 'package:bank_sha/ui/pages/signup_success_page.dart';
 import 'package:bank_sha/ui/pages/splash_page.dart';
 import 'package:bank_sha/ui/pages/topup_page.dart';
+import 'package:bank_sha/ui/pages/transfer_amount_page.dart';
+import 'package:bank_sha/ui/pages/transfer_page.dart';
+import 'package:bank_sha/ui/pages/transfer_success_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class AppPages {
@@ -35,5 +41,11 @@ class AppPages {
     PagesName.topupPage: (c) => const TopupPage(),
     PagesName.checkoutPage: (c) => const CheckoutPage(),
     PagesName.checkoutSuccessPage: (c) => const CheckoutSuccessPage(),
+    PagesName.transferPage: (c) => const TransferPage(),
+    PagesName.transferAmountPage: (c) => const TransferAmount(),
+    PagesName.transferSuccessPage: (c) => const TransferSuccessPage(),
+    PagesName.providerPage: (c) => const ProviderSelect(),
+    PagesName.packagePage: (c) => const PackageSelect(),
+    PagesName.providerSuccessPage: (c) => const ProviderSuccess(),
   };
 }

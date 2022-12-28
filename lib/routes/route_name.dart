@@ -15,4 +15,10 @@ abstract class PagesName {
   static const topupPage = "/topup";
   static const checkoutPage = "/checkout";
   static const checkoutSuccessPage = "/checkout-success";
+  static const transferPage = "/transfer";
+  static const transferAmountPage = "/transfer-amount";
+  static const transferSuccessPage = "/transfer-success";
+  static const providerPage = "/provider";
+  static const packagePage = "/package";
+  static const providerSuccessPage = "/provider-success";
 }
