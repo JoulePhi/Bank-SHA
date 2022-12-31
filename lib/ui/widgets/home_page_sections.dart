@@ -1,3 +1,4 @@
+import 'package:bank_sha/blocs/auth/auth_bloc.dart';
 import 'package:bank_sha/routes/route_name.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
@@ -7,54 +8,68 @@ import 'package:bank_sha/ui/widgets/home_item.dart';
 import 'package:bank_sha/ui/widgets/latest_trac_item.dart';
 import 'package:bank_sha/ui/widgets/send_again_item.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileSection extends StatelessWidget {
   const ProfileSection({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 42),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Howdy,',
-                style: AppTextStyle.greyPoppins(16, FontWeight.normal),
-              ),
-              Text(
-                'Shaynahan',
-                style: AppTextStyle.blackPoppins(20, FontWeight.w600),
-              ),
-            ],
-          ),
-          GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(context, PagesName.profilePage);
-            },
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage('assets/image_profile.png'),
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            margin: const EdgeInsets.only(top: 42),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Howdy,',
+                      style: AppTextStyle.greyPoppins(16, FontWeight.normal),
+                    ),
+                    Text(
+                      state.user.name.toString(),
+                      style: AppTextStyle.blackPoppins(20, FontWeight.w600),
+                    ),
+                  ],
                 ),
-              ),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: Image.asset(
-                  'assets/ic_check.png',
-                  width: 16,
-                ),
-              ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, PagesName.profilePage);
+                  },
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: state.user.profilePicture == null
+                            ? const AssetImage('assets/image_profile.png')
+                            : NetworkImage(state.user.profilePicture!)
+                                as ImageProvider,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    child: state.user.verified == 1
+                        ? Align(
+                            alignment: Alignment.topRight,
+                            child: Image.asset(
+                              'assets/ic_check.png',
+                              width: 16,
+                            ),
+                          )
+                        : null,
+                  ),
+                )
+              ],
             ),
-          )
-        ],
-      ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }
@@ -64,43 +79,51 @@ class CardSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 220,
-      margin: const EdgeInsets.only(top: 32),
-      padding: const EdgeInsets.all(30),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(28),
-        image: const DecorationImage(
-          image: AssetImage('assets/img_card_bg.png'),
-          fit: BoxFit.cover,
-        ),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Shayna Hanna',
-            style: AppTextStyle.whitePoppins(18, FontWeight.w500),
-          ),
-          AppUtils.spaceV(28),
-          Text(
-            '****  ****  ****  1280',
-            style: AppTextStyle.whitePoppins(18, FontWeight.w500).copyWith(
-              letterSpacing: 3,
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state is AuthSuccess) {
+          return Container(
+            width: double.infinity,
+            height: 220,
+            margin: const EdgeInsets.only(top: 32),
+            padding: const EdgeInsets.all(30),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(28),
+              image: const DecorationImage(
+                image: AssetImage('assets/img_card_bg.png'),
+                fit: BoxFit.cover,
+              ),
             ),
-          ),
-          AppUtils.spaceV(21),
-          Text(
-            'Balance',
-            style: AppTextStyle.whitePoppins(14, FontWeight.normal),
-          ),
-          Text(
-            AppUtils.formatCurrency(12500),
-            style: AppTextStyle.whitePoppins(24, FontWeight.w600),
-          ),
-        ],
-      ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  state.user.name.toString(),
+                  style: AppTextStyle.whitePoppins(18, FontWeight.w500),
+                ),
+                AppUtils.spaceV(28),
+                Text(
+                  '****  ****  ****  ${state.user.cardNumber!.substring(12, 16)}',
+                  style:
+                      AppTextStyle.whitePoppins(18, FontWeight.w500).copyWith(
+                    letterSpacing: 3,
+                  ),
+                ),
+                AppUtils.spaceV(21),
+                Text(
+                  'Balance',
+                  style: AppTextStyle.whitePoppins(14, FontWeight.normal),
+                ),
+                Text(
+                  AppUtils.formatCurrency(state.user.balance ?? 0),
+                  style: AppTextStyle.whitePoppins(24, FontWeight.w600),
+                ),
+              ],
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }
@@ -398,32 +421,30 @@ class FirendlyTipsSection extends StatelessWidget {
             style: AppTextStyle.blackPoppins(18, FontWeight.w600),
           ),
           AppUtils.spaceV(14),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              FriendlyTipsItems(
-                  thumbnail: 'assets/img_tips1.png',
-                  title: 'Best tips for using a credit card',
-                  url: 'https://www.google.com'),
-              FriendlyTipsItems(
-                  thumbnail: 'assets/img_tips2.png',
-                  title: 'Spot the good pie of finance model',
-                  url: 'https://www.google.com'),
-            ],
-          ),
-          AppUtils.spaceV(18),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              FriendlyTipsItems(
-                  thumbnail: 'assets/img_tips3.png',
-                  title: 'Great hack to get better advices',
-                  url: 'https://www.google.com'),
-              FriendlyTipsItems(
-                  thumbnail: 'assets/img_tips4.png',
-                  title: 'Save more penny buy this instead',
-                  url: 'https://www.google.com'),
-            ],
+          Center(
+            child: Wrap(
+              spacing: 18,
+              runSpacing: 18,
+              alignment: WrapAlignment.center,
+              children: const [
+                FriendlyTipsItems(
+                    thumbnail: 'assets/img_tips1.png',
+                    title: 'Best tips for using a credit card',
+                    url: 'https://www.google.com'),
+                FriendlyTipsItems(
+                    thumbnail: 'assets/img_tips2.png',
+                    title: 'Spot the good pie of finance model',
+                    url: 'https://www.google.com'),
+                FriendlyTipsItems(
+                    thumbnail: 'assets/img_tips3.png',
+                    title: 'Great hack to get better advices',
+                    url: 'https://www.google.com'),
+                FriendlyTipsItems(
+                    thumbnail: 'assets/img_tips4.png',
+                    title: 'Save more penny buy this instead',
+                    url: 'https://www.google.com'),
+              ],
+            ),
           ),
           AppUtils.spaceV(50),
         ],

@@ -1,8 +1,10 @@
+import 'package:bank_sha/blocs/auth/auth_bloc.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
 import 'package:bank_sha/ui/widgets/pin_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PinPage extends StatefulWidget {
   const PinPage({super.key});
@@ -13,10 +15,13 @@ class PinPage extends StatefulWidget {
 
 class _PinPageState extends State<PinPage> {
   TextEditingController pinC = TextEditingController();
+  String pin = '';
+  bool isError = false;
 
   addValue(String val) {
     if (pinC.text.length < 6) {
       setState(() {
+        isError = false;
         pinC.text += val;
       });
     } else {
@@ -24,9 +29,12 @@ class _PinPageState extends State<PinPage> {
     }
 
     if (pinC.text.length >= 6) {
-      if (pinC.text == '123456') {
+      if (pinC.text == pin) {
         Navigator.pop(context, true);
       } else {
+        setState(() {
+          isError = true;
+        });
         AppUtils.showAppSnackbar(
             context, 'PIN yang anda masukkan salah. Silakan coba lagi.');
       }
@@ -36,10 +44,20 @@ class _PinPageState extends State<PinPage> {
   deleteVal() {
     if (pinC.text.isNotEmpty) {
       setState(() {
+        isError = false;
         pinC.text = pinC.text.substring(0, pinC.text.length - 1);
       });
     } else {
       pinC.text = pinC.text;
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    final authState = context.read<AuthBloc>().state;
+    if (authState is AuthSuccess) {
+      pin = authState.user.pin!;
     }
   }
 
@@ -65,6 +83,8 @@ class _PinPageState extends State<PinPage> {
                 enabled: false,
                 style: AppTextStyle.whitePoppins(36, FontWeight.w500).copyWith(
                   letterSpacing: 15,
+                  color:
+                      isError ? AppColors.darkPinkColor : AppColors.whiteColor,
                 ),
                 decoration: InputDecoration(
                   border: UnderlineInputBorder(

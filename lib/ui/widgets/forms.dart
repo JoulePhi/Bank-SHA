@@ -7,7 +7,7 @@ import '../../shared/utils.dart';
 class AppFormField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
-  final bool obscured, isTitled;
+  final bool obscured, isTitled, readOnly;
   final TextInputType? type;
 
   const AppFormField({
@@ -17,6 +17,7 @@ class AppFormField extends StatelessWidget {
     this.obscured = false,
     this.isTitled = true,
     this.type,
+    this.readOnly = false,
   });
 
   @override
@@ -35,6 +36,7 @@ class AppFormField extends StatelessWidget {
           obscureText: obscured,
           style: AppTextStyle.blackPoppins(14, FontWeight.w500),
           keyboardType: type,
+          readOnly: readOnly,
           decoration: InputDecoration(
             hintText: !isTitled ? title : null,
             filled: !isTitled,

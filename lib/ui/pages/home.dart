@@ -9,25 +9,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: AppColors.lightBgColor,
-        bottomNavigationBar: const BnB(),
-        floatingActionButton: const FaB(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        body: ListView(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          physics: const BouncingScrollPhysics(),
-          children: const [
-            ProfileSection(),
-            CardSection(),
-            LevelSection(),
-            MenuItemSection(),
-            LatestTransactionSection(),
-            SendAgainSection(),
-            FirendlyTipsSection(),
-          ],
-        ),
+    return Scaffold(
+      backgroundColor: AppColors.lightBgColor,
+      bottomNavigationBar: const BnB(),
+      floatingActionButton: const FaB(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      body: ListView(
+        padding: const EdgeInsets.symmetric(horizontal: 24),
+        physics: const BouncingScrollPhysics(),
+        children: const [
+          ProfileSection(),
+          CardSection(),
+          LevelSection(),
+          MenuItemSection(),
+          LatestTransactionSection(),
+          SendAgainSection(),
+          FirendlyTipsSection(),
+        ],
       ),
     );
   }

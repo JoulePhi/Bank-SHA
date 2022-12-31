@@ -20,3 +20,30 @@ class AuthRegister extends AuthEvent {
   @override
   List<Object> get props => [data];
 }
+
+class AuthLogin extends AuthEvent {
+  final SignInModel data;
+  const AuthLogin(this.data);
+
+  @override
+  List<Object> get props => [data];
+}
+
+class AuthGetCurrentUser extends AuthEvent {}
+
+class AuthUpdateUser extends AuthEvent {
+  final EditProfileModel data;
+
+  const AuthUpdateUser(this.data);
+  @override
+  List<Object> get props => [data];
+}
+
+class AuthUpdatePin extends AuthEvent {
+  final UpdatePinModel data;
+  const AuthUpdatePin(this.data);
+  @override
+  List<Object> get props => [data];
+}
+
+class AuthLogout extends AuthEvent {}
