@@ -5,7 +5,6 @@ import 'package:bank_sha/shared/utils.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/pin_button.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 // ignore: depend_on_referenced_packages
 import 'package:intl/intl.dart';
 

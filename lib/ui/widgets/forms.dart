@@ -8,6 +8,7 @@ class AppFormField extends StatelessWidget {
   final String title;
   final TextEditingController controller;
   final bool obscured, isTitled;
+  final TextInputType? type;
 
   const AppFormField({
     super.key,
@@ -15,6 +16,7 @@ class AppFormField extends StatelessWidget {
     required this.controller,
     this.obscured = false,
     this.isTitled = true,
+    this.type,
   });
 
   @override
@@ -32,6 +34,7 @@ class AppFormField extends StatelessWidget {
           controller: controller,
           obscureText: obscured,
           style: AppTextStyle.blackPoppins(14, FontWeight.w500),
+          keyboardType: type,
           decoration: InputDecoration(
             hintText: !isTitled ? title : null,
             filled: !isTitled,

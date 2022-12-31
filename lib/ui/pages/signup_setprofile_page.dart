@@ -1,13 +1,35 @@
-import 'package:bank_sha/routes/route_name.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:bank_sha/models/signup_model.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
+import 'package:bank_sha/ui/pages/signup_ktp_page.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:bank_sha/ui/widgets/forms.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class SignupProfilePage extends StatelessWidget {
-  const SignupProfilePage({super.key});
+class SignupProfilePage extends StatefulWidget {
+  final SignUpModel? data;
+
+  const SignupProfilePage({super.key, this.data});
+
+  @override
+  State<SignupProfilePage> createState() => _SignupProfilePageState();
+}
+
+class _SignupProfilePageState extends State<SignupProfilePage> {
+  TextEditingController pinC = TextEditingController();
+  XFile? selectedImage;
+
+  bool validate() {
+    if (pinC.text.length != 6) {
+      return false;
+    }
+    return true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,34 +60,71 @@ class SignupProfilePage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Container(
-                  width: 120,
-                  height: 120,
-                  decoration: const BoxDecoration(
+                GestureDetector(
+                  onTap: () async {
+                    final image = await AppUtils.pickImage();
+                    setState(() {
+                      selectedImage = image;
+                    });
+                  },
+                  child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(
-                          'assets/image_profile.png',
-                        ),
-                        fit: BoxFit.cover,
-                      )),
+                      color: AppColors.lightBgColor,
+                      image: selectedImage == null
+                          ? null
+                          : DecorationImage(
+                              image: FileImage(
+                                File(selectedImage!.path),
+                              ),
+                              fit: BoxFit.cover,
+                            ),
+                    ),
+                    child: selectedImage == null
+                        ? Center(
+                            child: Image.asset(
+                              'assets/icon_upload.png',
+                              width: 32,
+                            ),
+                          )
+                        : null,
+                  ),
                 ),
                 AppUtils.spaceV(16),
                 Text(
-                  'Shayna Hanna',
+                  widget.data!.toJson()['name'],
                   style: AppTextStyle.blackPoppins(18, FontWeight.w500),
                 ),
                 AppUtils.spaceV(30),
                 AppFormField(
                   title: 'Set PIN (6 digit number)',
-                  controller: TextEditingController(),
+                  controller: pinC,
                   obscured: true,
+                  type: TextInputType.number,
                 ),
                 AppUtils.spaceV(30),
                 FilledButton(
                   title: 'Continue',
                   onPressed: () {
-                    Navigator.pushNamed(context, PagesName.signupKtpPage);
+                    if (validate()) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SignupKtpPage(
+                            data: widget.data!.copyWith(
+                              pin: pinC.text,
+                              profilePicture: selectedImage == null
+                                  ? null
+                                  : 'data:image/png;base64,${base64Encode(File(selectedImage!.path).readAsBytesSync())}',
+                            ),
+                          ),
+                        ),
+                      );
+                    } else {
+                      AppUtils.showAppSnackbar(context, 'Pin Harus 6 Digit');
+                    }
                   },
                 )
               ],

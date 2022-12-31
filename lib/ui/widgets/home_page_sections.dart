@@ -398,9 +398,8 @@ class FirendlyTipsSection extends StatelessWidget {
             style: AppTextStyle.blackPoppins(18, FontWeight.w600),
           ),
           AppUtils.spaceV(14),
-          Wrap(
-            spacing: 2,
-            runSpacing: 18,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: const [
               FriendlyTipsItems(
                   thumbnail: 'assets/img_tips1.png',
@@ -410,6 +409,12 @@ class FirendlyTipsSection extends StatelessWidget {
                   thumbnail: 'assets/img_tips2.png',
                   title: 'Spot the good pie of finance model',
                   url: 'https://www.google.com'),
+            ],
+          ),
+          AppUtils.spaceV(18),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: const [
               FriendlyTipsItems(
                   thumbnail: 'assets/img_tips3.png',
                   title: 'Great hack to get better advices',

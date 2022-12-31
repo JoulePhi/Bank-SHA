@@ -2,6 +2,7 @@ import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AppUtils {
@@ -43,5 +44,12 @@ class AppUtils {
   static String formatCurrency(num number, {String symbol = 'Rp '}) {
     return NumberFormat.currency(locale: 'id', symbol: symbol, decimalDigits: 0)
         .format(number);
+  }
+
+  static Future<XFile?> pickImage() async {
+    XFile? image = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+    );
+    return image;
   }
 }
