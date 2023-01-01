@@ -1,16 +1,15 @@
+import 'package:bank_sha/models/payment_method_moder.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:flutter/material.dart';
 
 class BankItem extends StatelessWidget {
-  final String name, logoUrl, detail;
+  final PaymentMethodModel paymentMethod;
   final bool isSelected;
   const BankItem({
     super.key,
-    required this.name,
-    required this.logoUrl,
+    required this.paymentMethod,
     this.isSelected = false,
-    this.detail = 'Available',
   });
 
   @override
@@ -31,8 +30,8 @@ class BankItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Image.asset(
-            logoUrl,
+          Image.network(
+            paymentMethod.thumbnail.toString(),
             height: 30,
           ),
           Column(
@@ -40,11 +39,11 @@ class BankItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                name,
+                paymentMethod.name.toString(),
                 style: AppTextStyle.blackPoppins(16, FontWeight.w500),
               ),
               Text(
-                detail,
+                paymentMethod.time.toString(),
                 style: AppTextStyle.greyPoppins(12, FontWeight.normal),
               )
             ],

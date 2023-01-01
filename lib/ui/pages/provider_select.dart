@@ -1,7 +1,6 @@
 import 'package:bank_sha/routes/route_name.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
-import 'package:bank_sha/ui/widgets/bank_item.dart';
 import 'package:bank_sha/ui/widgets/buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -51,19 +50,19 @@ class ProviderSelect extends StatelessWidget {
             style: AppTextStyle.blackPoppins(16, FontWeight.w600),
           ),
           AppUtils.spaceV(14),
-          const BankItem(
-            name: 'Telkomsel',
-            logoUrl: 'assets/img_telkomsel.png',
-            isSelected: true,
-          ),
-          const BankItem(
-            name: 'Indosat Ooredoo',
-            logoUrl: 'assets/img_indosat.png',
-          ),
-          const BankItem(
-            name: 'Singtel ID',
-            logoUrl: 'assets/img_singtel.png',
-          ),
+          // const BankItem(
+          //   name: 'Telkomsel',
+          //   logoUrl: 'assets/img_telkomsel.png',
+          //   isSelected: true,
+          // ),
+          // const BankItem(
+          //   name: 'Indosat Ooredoo',
+          //   logoUrl: 'assets/img_indosat.png',
+          // ),
+          // const BankItem(
+          //   name: 'Singtel ID',
+          //   logoUrl: 'assets/img_singtel.png',
+          // ),
           AppUtils.spaceV(50),
           FilledButton(
             title: 'Continue',

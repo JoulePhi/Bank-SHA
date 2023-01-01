@@ -46,6 +46,7 @@ class UserModel {
     String? email,
     String? password,
     String? pin,
+    int? balance,
   }) {
     return UserModel(
       id: id,
@@ -56,7 +57,7 @@ class UserModel {
       pin: pin ?? this.pin,
       verified: verified,
       profilePicture: profilePicture,
-      balance: balance,
+      balance: balance ?? this.balance,
       cardNumber: cardNumber,
       token: token,
     );
