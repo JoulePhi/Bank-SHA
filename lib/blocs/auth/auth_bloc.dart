@@ -105,9 +105,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is AuthUpdateBalance) {
         if (state is AuthSuccess) {
           final currUser = (state as AuthSuccess).user;
-          final updatedUser = (state as AuthSuccess)
-              .user
-              .copyWith(balance: currUser.balance! + event.newAmount);
+          late UserModel updatedUser;
+          if (event.operator == true) {
+            updatedUser = (state as AuthSuccess)
+                .user
+                .copyWith(balance: currUser.balance! + event.newAmount);
+          } else if (event.operator == false) {
+            updatedUser = (state as AuthSuccess)
+                .user
+                .copyWith(balance: currUser.balance! - event.newAmount);
+          }
+
           emit(AuthSuccess(updatedUser));
         }
       }

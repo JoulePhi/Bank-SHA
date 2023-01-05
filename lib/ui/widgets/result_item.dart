@@ -1,18 +1,16 @@
+import 'package:bank_sha/models/user_moder.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
 import 'package:flutter/material.dart';
 
 class ResultItem extends StatelessWidget {
-  final String imgUrl, name, username;
-  final bool isVerified, isSelected;
+  final UserModel data;
+  final bool isSelected;
 
   const ResultItem({
     super.key,
-    required this.name,
-    required this.imgUrl,
-    required this.username,
-    this.isVerified = false,
+    required this.data,
     this.isSelected = false,
   });
 
@@ -37,10 +35,10 @@ class ResultItem extends StatelessWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: AssetImage(imgUrl),
+                image: NetworkImage(data.profilePicture.toString()),
               ),
             ),
-            child: isVerified
+            child: data.verified == 1
                 ? Align(
                     alignment: Alignment.topRight,
                     child: Image.asset(
@@ -52,13 +50,14 @@ class ResultItem extends StatelessWidget {
           ),
           AppUtils.spaceV(13),
           Text(
-            name,
+            data.name.toString(),
             style: AppTextStyle.blackPoppins(16, FontWeight.w500),
             overflow: TextOverflow.ellipsis,
           ),
           AppUtils.spaceV(2),
           Text(
-            '@$username',
+            '@${data.username}',
+            overflow: TextOverflow.ellipsis,
             style: AppTextStyle.greyPoppins(11, FontWeight.normal),
           ),
         ],

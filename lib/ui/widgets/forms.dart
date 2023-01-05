@@ -9,7 +9,7 @@ class AppFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool obscured, isTitled, readOnly;
   final TextInputType? type;
-
+  final Function(String)? onSubmitted;
   const AppFormField({
     super.key,
     required this.title,
@@ -18,6 +18,7 @@ class AppFormField extends StatelessWidget {
     this.isTitled = true,
     this.type,
     this.readOnly = false,
+    this.onSubmitted,
   });
 
   @override
@@ -37,6 +38,7 @@ class AppFormField extends StatelessWidget {
           style: AppTextStyle.blackPoppins(14, FontWeight.w500),
           keyboardType: type,
           readOnly: readOnly,
+          onFieldSubmitted: onSubmitted,
           decoration: InputDecoration(
             hintText: !isTitled ? title : null,
             filled: !isTitled,

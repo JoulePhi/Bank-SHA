@@ -50,7 +50,8 @@ class AuthLogout extends AuthEvent {}
 
 class AuthUpdateBalance extends AuthEvent {
   final int newAmount;
-  const AuthUpdateBalance(this.newAmount);
+  final bool operator;
+  const AuthUpdateBalance(this.newAmount, this.operator);
   @override
-  List<Object> get props => [newAmount];
+  List<Object> get props => [newAmount, operator];
 }

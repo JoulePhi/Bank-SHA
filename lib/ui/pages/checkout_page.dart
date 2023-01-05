@@ -81,8 +81,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
                     mode: LaunchMode.externalApplication,
                   ) ==
                   true) {
-                context.read<AuthBloc>().add(AuthUpdateBalance(
-                    int.parse(numC.text.replaceAll(".", ""))));
+                context.read<AuthBloc>().add(
+                      AuthUpdateBalance(
+                          int.parse(
+                            numC.text.replaceAll(".", ""),
+                          ),
+                          true),
+                    );
                 Navigator.pushNamedAndRemoveUntil(
                     context, PagesName.checkoutSuccessPage, (route) => false);
               }

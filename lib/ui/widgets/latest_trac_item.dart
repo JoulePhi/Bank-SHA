@@ -1,16 +1,26 @@
+import 'package:bank_sha/models/latest_transaction_model.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
 import 'package:flutter/material.dart';
 
 class LatestTracItem extends StatelessWidget {
-  final String iconUrl, title, date, value;
+  final LatestTransactionModel data;
 
-  const LatestTracItem({
+  final Map<String, String> icons = {
+    'top_up': 'assets/ic_trac_topup.png',
+    'internet': 'assets/ic_trac_topup.png',
+    'cashback': 'assets/ic_trac_cashback.png',
+    'withdraw': 'assets/ic_trac_withdraw.png',
+    'transfer': 'assets/ic_trac_transfer.png',
+    'electric': 'assets/ic_trac_electric.png',
+  };
+  final Map<String, String> symbol = {
+    'cr': '+',
+    'dr': '-',
+  };
+  LatestTracItem({
     super.key,
-    required this.iconUrl,
-    required this.title,
-    required this.date,
-    required this.value,
+    required this.data,
   });
 
   @override
@@ -21,7 +31,7 @@ class LatestTracItem extends StatelessWidget {
       child: Row(
         children: [
           Image.asset(
-            iconUrl,
+            icons[data.transactionTypeModel!.code].toString(),
             width: 48,
           ),
           AppUtils.spaceH(16),
@@ -31,18 +41,18 @@ class LatestTracItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  title,
+                  data.transactionTypeModel!.name.toString(),
                   style: AppTextStyle.blackPoppins(16, FontWeight.w500),
                 ),
                 Text(
-                  date,
+                  data.createdAt!.toString().split(' ')[0],
                   style: AppTextStyle.greyPoppins(12, FontWeight.normal),
                 )
               ],
             ),
           ),
           Text(
-            value,
+            '${symbol[data.transactionTypeModel!.action]} ${AppUtils.formatCurrency(data.amount!, symbol: '')}',
             style: AppTextStyle.blackPoppins(16, FontWeight.w500),
           )
         ],

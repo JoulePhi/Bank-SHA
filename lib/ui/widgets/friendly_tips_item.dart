@@ -1,23 +1,27 @@
+import 'package:bank_sha/models/friendly_tips_modle.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class FriendlyTipsItems extends StatelessWidget {
+  final FriendlyTipsModel data;
+
   const FriendlyTipsItems({
     super.key,
-    required this.thumbnail,
-    required this.title,
-    required this.url,
+    required this.data,
   });
-  final String thumbnail, title, url;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        Uri myUri = Uri.parse(url);
+        Uri myUri = Uri.parse(data.url.toString());
         if (await canLaunchUrl(myUri)) {
-          launchUrl(myUri);
+          launchUrl(
+            myUri,
+            mode: LaunchMode.externalApplication,
+          );
         }
       },
       child: Container(
@@ -32,8 +36,8 @@ class FriendlyTipsItems extends StatelessWidget {
             ClipRRect(
                 borderRadius:
                     const BorderRadius.vertical(top: Radius.circular(20)),
-                child: Image.asset(
-                  thumbnail,
+                child: Image.network(
+                  data.thumbnail.toString(),
                   width: 155,
                   height: 110,
                   fit: BoxFit.cover,
@@ -41,7 +45,7 @@ class FriendlyTipsItems extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(12),
               child: Text(
-                title,
+                data.title.toString(),
                 maxLines: 2,
                 style: AppTextStyle.blackPoppins(14, FontWeight.w500).copyWith(
                   overflow: TextOverflow.ellipsis,

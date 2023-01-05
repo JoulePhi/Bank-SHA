@@ -1,8 +1,13 @@
 import 'package:bank_sha/blocs/auth/auth_bloc.dart';
+import 'package:bank_sha/blocs/friendly_tips/friendly_tips_bloc.dart';
+import 'package:bank_sha/blocs/latest_transaction/latest_transaction_bloc.dart';
+import 'package:bank_sha/blocs/send_again/send_again_bloc.dart';
+import 'package:bank_sha/models/transfer_model.dart';
 import 'package:bank_sha/routes/route_name.dart';
 import 'package:bank_sha/shared/colors.dart';
 import 'package:bank_sha/shared/text_style.dart';
 import 'package:bank_sha/shared/utils.dart';
+import 'package:bank_sha/ui/pages/transfer_amount_page.dart';
 import 'package:bank_sha/ui/widgets/friendly_tips_item.dart';
 import 'package:bank_sha/ui/widgets/home_item.dart';
 import 'package:bank_sha/ui/widgets/latest_trac_item.dart';
@@ -333,35 +338,29 @@ class LatestTransactionSection extends StatelessWidget {
               color: AppColors.whiteColor,
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Column(
-              children: [
-                LatestTracItem(
-                    iconUrl: 'assets/ic_trac_topup.png',
-                    title: 'Top Up',
-                    date: 'Yesterday',
-                    value: '+ ${AppUtils.formatCurrency(450000)}'),
-                LatestTracItem(
-                    iconUrl: 'assets/ic_trac_cashback.png',
-                    title: 'Cashback',
-                    date: 'Sep 11',
-                    value: '+ ${AppUtils.formatCurrency(22000)}'),
-                LatestTracItem(
-                    iconUrl: 'assets/ic_trac_withdraw.png',
-                    title: 'Withdraw',
-                    date: 'Sep 2',
-                    value: '- ${AppUtils.formatCurrency(5000)}'),
-                LatestTracItem(
-                    iconUrl: 'assets/ic_trac_transfer.png',
-                    title: 'Transfer',
-                    date: 'Aug 27',
-                    value: '- ${AppUtils.formatCurrency(123500)}'),
-                LatestTracItem(
-                    iconUrl: 'assets/ic_trac_electric.png',
-                    title: 'Electric',
-                    date: 'Feb 18',
-                    value: '- ${AppUtils.formatCurrency(12300000)}'),
-              ],
-            ),
+            child: BlocProvider(
+                create: (context) =>
+                    LatestTransactionBloc()..add(LatestTransactionGet()),
+                child:
+                    BlocConsumer<LatestTransactionBloc, LatestTransactionState>(
+                  listener: (context, state) {
+                    if (state is LatestTransactionFailed) {
+                      AppUtils.showAppSnackbar(context, state.e);
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is LatestTransactionSuccess) {
+                      return Column(
+                        children: state.data
+                            .map((e) => LatestTracItem(data: e))
+                            .toList(),
+                      );
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  },
+                )),
           )
         ],
       ),
@@ -387,17 +386,36 @@ class SendAgainSection extends StatelessWidget {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             physics: const BouncingScrollPhysics(),
-            child: Row(
-              children: const [
-                SendAgainItem(
-                    imgUrl: 'assets/image_profile.png', username: 'yuanita'),
-                SendAgainItem(
-                    imgUrl: 'assets/image_profile.png', username: 'jani'),
-                SendAgainItem(
-                    imgUrl: 'assets/image_profile.png', username: 'urip'),
-                SendAgainItem(
-                    imgUrl: 'assets/image_profile.png', username: 'masa'),
-              ],
+            child: BlocProvider(
+              create: (context) => SendAgainBloc()..add(SendAgainGet()),
+              child: BlocBuilder<SendAgainBloc, SendAgainState>(
+                builder: (context, state) {
+                  if (state is SendAgainSuccess) {
+                    return Row(
+                      children: state.data
+                          .map(
+                            (e) => GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TransferAmount(
+                                              data: TransferModel(
+                                                sendTo: e.username.toString(),
+                                              ),
+                                            )));
+                              },
+                              child: SendAgainItem(data: e),
+                            ),
+                          )
+                          .toList(),
+                    );
+                  }
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
             ),
           )
         ],
@@ -421,29 +439,26 @@ class FirendlyTipsSection extends StatelessWidget {
             style: AppTextStyle.blackPoppins(18, FontWeight.w600),
           ),
           AppUtils.spaceV(14),
-          Center(
-            child: Wrap(
-              spacing: 18,
-              runSpacing: 18,
-              alignment: WrapAlignment.center,
-              children: const [
-                FriendlyTipsItems(
-                    thumbnail: 'assets/img_tips1.png',
-                    title: 'Best tips for using a credit card',
-                    url: 'https://www.google.com'),
-                FriendlyTipsItems(
-                    thumbnail: 'assets/img_tips2.png',
-                    title: 'Spot the good pie of finance model',
-                    url: 'https://www.google.com'),
-                FriendlyTipsItems(
-                    thumbnail: 'assets/img_tips3.png',
-                    title: 'Great hack to get better advices',
-                    url: 'https://www.google.com'),
-                FriendlyTipsItems(
-                    thumbnail: 'assets/img_tips4.png',
-                    title: 'Save more penny buy this instead',
-                    url: 'https://www.google.com'),
-              ],
+          BlocProvider(
+            create: (context) => FriendlyTipsBloc()..add(FriendlyTipsGet()),
+            child: BlocBuilder<FriendlyTipsBloc, FriendlyTipsState>(
+              builder: (context, state) {
+                if (state is FriendlyTipsSuccess) {
+                  return Center(
+                    child: Wrap(
+                      spacing: 18,
+                      runSpacing: 18,
+                      alignment: WrapAlignment.center,
+                      children: state.data
+                          .map((e) => FriendlyTipsItems(data: e))
+                          .toList(),
+                    ),
+                  );
+                }
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
             ),
           ),
           AppUtils.spaceV(50),
