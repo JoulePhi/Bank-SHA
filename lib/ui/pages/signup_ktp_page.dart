@@ -114,7 +114,7 @@ class _SignupKtpPageState extends State<SignupKtpPage> {
                       style: AppTextStyle.blackPoppins(18, FontWeight.w500),
                     ),
                     AppUtils.spaceV(50),
-                    FilledButton(
+                    MyFilledButton(
                       title: 'Continue',
                       onPressed: () {
                         if (validate()) {

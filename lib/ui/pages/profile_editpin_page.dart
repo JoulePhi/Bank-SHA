@@ -74,7 +74,7 @@ class _EditPinPageState extends State<EditPinPage> {
                       obscured: true,
                     ),
                     AppUtils.spaceV(30),
-                    FilledButton(
+                    MyFilledButton(
                       title: 'Update Now',
                       onPressed: () {
                         if (validate()) {

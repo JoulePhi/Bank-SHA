@@ -205,7 +205,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       ),
                     ),
                     AppUtils.spaceV(50),
-                    FilledButton(
+                    MyFilledButton(
                       title: "Checkout Now",
                       width: 260,
                       onPressed: () async {

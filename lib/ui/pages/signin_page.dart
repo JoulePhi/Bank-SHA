@@ -90,7 +90,7 @@ class _SigninPageState extends State<SigninPage> {
                       ),
                     ),
                     AppUtils.spaceV(30),
-                    FilledButton(
+                    MyFilledButton(
                       title: 'Sign In',
                       onPressed: () {
                         if (validate()) {

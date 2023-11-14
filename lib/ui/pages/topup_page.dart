@@ -112,7 +112,7 @@ class _TopupPageState extends State<TopupPage> {
       floatingActionButton: (isSelected != null)
           ? Container(
               margin: const EdgeInsets.all(24),
-              child: FilledButton(
+              child: MyFilledButton(
                 title: 'Continue',
                 onPressed: () {
                   Navigator.push(

@@ -197,7 +197,7 @@ class _TransferAmountState extends State<TransferAmount> {
                       ),
                     ),
                     AppUtils.spaceV(50),
-                    FilledButton(
+                    MyFilledButton(
                       title: "Continue",
                       width: 260,
                       onPressed: () async {

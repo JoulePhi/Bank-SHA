@@ -28,7 +28,7 @@ class SignupSuccessPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             AppUtils.spaceV(50),
-            FilledButton(
+            MyFilledButton(
               title: 'Get Started',
               width: 183,
               onPressed: (() {

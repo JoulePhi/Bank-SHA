@@ -28,7 +28,7 @@ class EditSuccessPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             AppUtils.spaceV(50),
-            FilledButton(
+            MyFilledButton(
               title: 'My Profile',
               width: 183,
               onPressed: (() {

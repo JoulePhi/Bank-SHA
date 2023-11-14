@@ -100,7 +100,7 @@ class _ProviderSelectState extends State<ProviderSelect> {
       floatingActionButton: isSelected != null
           ? Container(
               margin: const EdgeInsets.all(24),
-              child: FilledButton(
+              child: MyFilledButton(
                 title: 'Continue',
                 onPressed: () {
                   Navigator.push(

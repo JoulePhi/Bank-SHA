@@ -28,7 +28,7 @@ class TransferSuccessPage extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             AppUtils.spaceV(50),
-            FilledButton(
+            MyFilledButton(
               title: 'Back To Home',
               width: 230,
               onPressed: (() {

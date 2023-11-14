@@ -65,7 +65,7 @@ class _TransferPageState extends State<TransferPage> {
       floatingActionButton: selectedUser != null
           ? Container(
               margin: const EdgeInsets.all(24),
-              child: FilledButton(
+              child: MyFilledButton(
                 title: 'Continue',
                 onPressed: () {
                   Navigator.push(

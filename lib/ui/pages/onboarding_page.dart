@@ -85,7 +85,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   currentIndex == 2
                       ? Column(
                           children: [
-                            FilledButton(
+                            MyFilledButton(
                               title: 'Get Started',
                               onPressed: () {
                                 Navigator.pushNamedAndRemoveUntil(
@@ -141,7 +141,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                                   shape: BoxShape.circle),
                             ),
                             const Spacer(),
-                            FilledButton(
+                            MyFilledButton(
                               title: 'Continue',
                               width: 150,
                               onPressed: () => _carouselController.nextPage(),

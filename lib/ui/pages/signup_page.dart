@@ -100,7 +100,7 @@ class _SignupPageState extends State<SignupPage> {
                       obscured: true,
                     ),
                     AppUtils.spaceV(30),
-                    FilledButton(
+                    MyFilledButton(
                       title: 'Continue',
                       onPressed: () {
                         if (validate()) {

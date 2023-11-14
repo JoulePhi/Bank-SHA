@@ -89,7 +89,7 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
                       controller: passC,
                     ),
                     AppUtils.spaceV(30),
-                    FilledButton(
+                    MyFilledButton(
                       title: 'Update Now',
                       onPressed: () {
                         context.read<AuthBloc>().add(AuthUpdateUser(

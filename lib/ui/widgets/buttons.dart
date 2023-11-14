@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../shared/text_style.dart';
 
-class FilledButton extends StatelessWidget {
+class MyFilledButton extends StatelessWidget {
   final String title;
   final double width;
   final double height;
   final VoidCallback? onPressed;
   final Color color;
-  const FilledButton(
+  const MyFilledButton(
       {super.key,
       required this.title,
       this.width = double.infinity,

@@ -105,7 +105,7 @@ class _SignupProfilePageState extends State<SignupProfilePage> {
                   type: TextInputType.number,
                 ),
                 AppUtils.spaceV(30),
-                FilledButton(
+                MyFilledButton(
                   title: 'Continue',
                   onPressed: () {
                     if (validate()) {
